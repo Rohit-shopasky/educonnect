@@ -1,0 +1,25 @@
+service: nodejs-aws-lambda
+provider:
+  name: aws
+  runtime: nodejs18.x
+  timeout: 30
+  environment:
+    NODE_ENV: dev
+
+plugins:
+  - serverless-offline
+  - serverless-offline-watcher
+
+package:
+  exclude:
+    - config/.env.stg
+    - config/.env.pro
+  include:
+    - config/.env.dev
+
+functions:
+  app:
+    handler: dist/app.handler
+    events:
+      - http: ANY /
+      - http: ANY /{proxy+}
