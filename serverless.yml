@@ -1,4 +1,4 @@
-service: nodejs-aws-lambda
+service: educonnect-lambda
 provider:
   name: aws
   runtime: nodejs18.x

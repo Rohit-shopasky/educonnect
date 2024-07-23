@@ -5,6 +5,7 @@ export interface IStudent {
   firstName: string;
   lastName: string;
   standard: string;
+  section:string;
   parentId: string;
   gender: gender;
   schoolId: string;
@@ -35,6 +36,7 @@ export interface IStudentRegReq {
   firstName: string;
   lastName: string;
   standard: string;
+  section:string;
   parents: IParentDetails[];
   gender: gender;
   schoolId: string;

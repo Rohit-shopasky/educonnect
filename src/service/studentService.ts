@@ -2,15 +2,19 @@ import { Model } from "mongoose";
 import { IStudent, IStudentRegReq, gender } from "../model/dto/studentDTO";
 import { v4 as uuidv4 } from "uuid";
 import { ParentsService } from "./parentsService";
+import {ClassesService} from "./classesService";
 import { CustomError } from "../types/errorTypes";
 
 const parentService = new ParentsService();
+const classService = new ClassesService();
 export class StudentsService {
   private students: Model<any>;
   private parentService: ParentsService;
+  private classService:ClassesService;
   constructor(students: Model<any>) {
     this.students = students;
     this.parentService = parentService;
+    this.classService = classService;
   }
 
   /**
@@ -32,6 +36,9 @@ export class StudentsService {
           400
         );
       }
+      
+      // get the classId
+      this.classService.getClassById("i00");
 
       const id = uuidv4();
       return this.students.create({
@@ -43,6 +50,7 @@ export class StudentsService {
         parentId: parent.id,
         gender: params.gender,
         schoolId: params.schoolId,
+        section:params.section
       });
     } catch (error: any) {
       throw error;

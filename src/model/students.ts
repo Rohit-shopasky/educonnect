@@ -18,6 +18,7 @@ const studentsSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   standard: String,
+  section:String,
   parentId: String,
   gender: String,
   schoolId: String,

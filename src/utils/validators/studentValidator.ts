@@ -1,4 +1,4 @@
-import { IStudent, IStudentRegReq } from "../../model/dto/studentDTO";
+import { IStudentRegReq } from "../../model/dto/studentDTO";
 import { CustomError } from "../../types/errorTypes";
 
 export class StudentValidator {

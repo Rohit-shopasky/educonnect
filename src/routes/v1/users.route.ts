@@ -2,9 +2,11 @@ import { NextFunction, Request, Response, Router } from "express";
 import { StudentsController } from "../../controller/studentController"; // Adjust the path as needed
 import { students } from "../../model";
 import { LoginController } from "../../controller/loginController";
+import { ClassController } from "../../controller/classController";
 
 const studentsController = new StudentsController(students);
 const loginController = new LoginController();
+const classController = new ClassController();
 
 const router = Router();
 
@@ -34,7 +36,19 @@ router.post(
   "/login",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = await loginController.login(req, res, next);
+      const result = await loginController.login(req);
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.post(
+  "/createClass",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await classController.createClassController(req);
       res.status(200).json(result);
     } catch (error) {
       next(error);
