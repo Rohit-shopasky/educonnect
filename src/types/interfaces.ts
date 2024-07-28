@@ -13,3 +13,4 @@ export interface ILoginResponse {
   jwt: string;
   studentDetails: IStudent[];
 }
+

@@ -1,5 +1,5 @@
 import { Model } from "mongoose";
-import { IStudent, IStudentRegReq, gender } from "../model/dto/studentDTO";
+import { IStudent, IStudentRegReq, } from "../model/dto/studentDTO";
 import { v4 as uuidv4 } from "uuid";
 import { ParentsService } from "./parentsService";
 import {ClassesService} from "./classesService";
@@ -24,6 +24,13 @@ export class StudentsService {
 
   public async registerStudentService(params: IStudentRegReq) {
     try {
+
+      // get the classId
+     const classDetails=await this.classService.getClassByStandardAndSection(params.standard,params.section);
+     if(!classDetails){
+      throw new CustomError(`Class does not exists!`,400);
+     }
+     
       const parent = await this.parentService.registerParentService(
         params.parents,
         params.address
@@ -37,8 +44,7 @@ export class StudentsService {
         );
       }
       
-      // get the classId
-      this.classService.getClassById("i00");
+      
 
       const id = uuidv4();
       return this.students.create({
@@ -46,11 +52,10 @@ export class StudentsService {
         instituteId: params.instituteId,
         firstName: params.firstName,
         lastName: params.lastName,
-        standard: params.standard,
         parentId: parent.id,
         gender: params.gender,
         schoolId: params.schoolId,
-        section:params.section
+        classId:classDetails.id
       });
     } catch (error: any) {
       throw error;

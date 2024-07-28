@@ -162,7 +162,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/educonnect-lambda/dev/1717431126589-2024-06-03T16:12:06.589Z/educonnect-lambda.zip"
+          "S3Key": "serverless/educonnect-lambda/dev/1721716534903-2024-07-23T06:35:34.903Z/educonnect-lambda.zip"
         },
         "Handler": "dist/app.handler",
         "Runtime": "nodejs18.x",
@@ -185,14 +185,14 @@
         "AppLogGroup"
       ]
     },
-    "AppLambdaVersionTdqfc7JEUzKXxw4D4wULKjihtSXVotZcS0sJknHGo": {
+    "AppLambdaVersionWA8xQDLwchAAFrNxXcxlsZcLoyyqFtMPNYWzgTKYfmU": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppLambdaFunction"
         },
-        "CodeSha256": "nmeAQpp5skqiVwl97s1+28THujkat94N2Wo05TNXbyY="
+        "CodeSha256": "Z3oTNBaXBF5wIQLc6dHlmJ7i//x4QUcBIgA9mG5EiOA="
       }
     },
     "ApiGatewayRestApi": {
@@ -317,7 +317,7 @@
         "AppLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1717431101703": {
+    "ApiGatewayDeployment1721716501607": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -380,7 +380,7 @@
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersionTdqfc7JEUzKXxw4D4wULKjihtSXVotZcS0sJknHGo"
+        "Ref": "AppLambdaVersionWA8xQDLwchAAFrNxXcxlsZcLoyyqFtMPNYWzgTKYfmU"
       },
       "Export": {
         "Name": "sls-educonnect-lambda-dev-AppLambdaFunctionQualifiedArn"

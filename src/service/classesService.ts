@@ -74,6 +74,25 @@ export class ClassesService {
     }
   }
 
+  public async getClassByStandardAndSection(
+    standard:string,
+    section:string,
+  ) {
+    try {
+     const result= await this.classes.findOne({
+        standard:standard,
+        section:section
+      })
+      return result;
+    } catch (error) {
+      throw new CustomError(
+        "Something went wrong while fetching class!",
+        500
+      );
+    }
+  }
+
+
  
 
   

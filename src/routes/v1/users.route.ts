@@ -3,10 +3,12 @@ import { StudentsController } from "../../controller/studentController"; // Adju
 import { students } from "../../model";
 import { LoginController } from "../../controller/loginController";
 import { ClassController } from "../../controller/classController";
+import {StaffController} from "../../controller/staffController";
 
 const studentsController = new StudentsController(students);
 const loginController = new LoginController();
 const classController = new ClassController();
+const staffController = new StaffController();
 
 const router = Router();
 
@@ -49,6 +51,18 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = await classController.createClassController(req);
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.post(
+  "/registerStaff",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await staffController.createStaffController(req);
       res.status(200).json(result);
     } catch (error) {
       next(error);
