@@ -1,4 +1,5 @@
 import { gender, staffType } from "../constants";
+import { IDeviceDetails } from "./parentDTO";
 
 export interface IStaff{
   id:string,
@@ -11,6 +12,7 @@ export interface IStaff{
   age:number,
   gender:gender
   classes:string[],
+  device:IDeviceDetails[]
   address:string,
   qualifications:string,
   createdAt:string,

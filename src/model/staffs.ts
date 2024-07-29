@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { gender, staffType } from "./constants";
+import { IDeviceDetails } from "./dto/parentDTO";
 
 export type StaffsDocument = mongoose.Document & {
    id:string,
@@ -12,6 +13,7 @@ export type StaffsDocument = mongoose.Document & {
   age:number,
   gender:gender
   classes:string[],
+  device:IDeviceDetails[]
   address:string,
   qualifications:string,
   createdAt:string,
@@ -27,6 +29,13 @@ const staffsSchema = new mongoose.Schema({
   age:Number,
   gender:String,
   classes:[{type:String}],
+  device:[{
+          platformType: String,
+          token: String,
+          adid: String,
+          sns: String,
+          jwt: String,
+        }],
   address:String,
    qualifications:String,
   createdAt: { type: Date, default: Date.now },
