@@ -4,6 +4,7 @@ import { IDevice, IParentDetails } from "./dto/parentDTO";
 export type ParentsDocument = mongoose.Document & {
   id: String;
   parentDetails: IParentDetails[];
+  instituteId: string;
   device: IDevice[];
   address: String;
   childIds?: String[];
@@ -19,7 +20,7 @@ const parentsSchema = new mongoose.Schema({
       parentType: String,
     },
   ],
-
+  instituteId: String,
   device: [
     {
       mob: String,

@@ -77,11 +77,13 @@ export class ClassesService {
   public async getClassByStandardAndSection(
     standard:string,
     section:string,
+    instituteId:string,
   ) {
     try {
      const result= await this.classes.findOne({
         standard:standard,
-        section:section
+        section:section,
+        instituteId:instituteId
       })
       return result;
     } catch (error) {

@@ -3,6 +3,9 @@ import { CustomError } from "../../types/errorTypes";
 
 export class StudentValidator {
   validateStudentRegistration(params: IStudentRegReq) {
+    if (!params.instituteId) {
+      throw new CustomError("InstituteId name is required!", 400);
+    }
     if (!params.firstName) {
       throw new CustomError("First name is required!", 400);
     }

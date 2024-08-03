@@ -12,15 +12,7 @@ const staffController = new StaffController();
 
 const router = Router();
 
-// router.get("/test", async (req: Request, res: Response) => {
-//   try {
-//     const result = await studentsController.createStudent(req, res);
-//     res.status(200).json({ status: 200, msg: "test route" });
-//   } catch (error) {
-//     console.error("An error ocurred:", error);
-//     res.status(500).json(error);
-//   }
-// });
+
 
 router.post(
   "/registerStudent",
@@ -69,6 +61,28 @@ router.post(
     }
   }
 );
+
+
+router.post(
+  "/staffLogin",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await loginController.staffLogin(req);
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+// router.get("/test", async (req: Request, res: Response) => {
+//   try {
+//     const result = await studentsController.createStudent(req, res);
+//     res.status(200).json({ status: 200, msg: "test route" });
+//   } catch (error) {
+//     console.error("An error ocurred:", error);
+//     res.status(500).json(error);
+//   }
+// });
 
 // router.put("/:id", async (req: Request, res: Response) => {
 //   try {

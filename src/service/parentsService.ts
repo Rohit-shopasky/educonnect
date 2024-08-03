@@ -21,16 +21,18 @@ export class ParentsService {
 
   public async registerParentService(
     params: IParentDetails[],
+    instituteId:string,
     address?: string
   ) {
     try {
       const nonRegisteredParents: any[] = await this.checkIfParentExists(
-        params
+        params,
+        instituteId
       );
       if (nonRegisteredParents.length > 0) {
-        return await this.registerParents(nonRegisteredParents, address);
+        return await this.registerParents(nonRegisteredParents,instituteId, address);
       } else {
-        return await this.findParentByMob(params);
+        return await this.findParentByMob(params,instituteId);
       }
     } catch (error) {
       throw new CustomError(
@@ -40,10 +42,11 @@ export class ParentsService {
     }
   }
 
-  public async checkIfParentExists(params: IParentDetails[]) {
+  public async checkIfParentExists(params: IParentDetails[],instituteId:string) {
     const parentChecks = params.map(async (parent: IParentDetails) => {
       const parentFound = await this.parents.findOne({
         "parentDetails.mob": parent.mob,
+        instituteId:instituteId
       });
       return !parentFound ? parent : null;
     });
@@ -54,23 +57,24 @@ export class ParentsService {
     return nonRegisteredParents;
   }
 
-  public async registerParents(params: IParentDetails[], address?: string) {
+  public async registerParents(params: IParentDetails[], instituteId:string, address?: string) {
     const id = uuidv4();
     const parentCreate = await this.parents.create({
       id,
       parentDetails: params,
+      instituteId:instituteId,
       address,
       device: [],
     });
     return parentCreate;
   }
 
-  public async findParentByMob(params: IParentDetails[]) {
-    return await this.parents.findOne({ "parentDetails.mob": params[0].mob });
+  public async findParentByMob(params: IParentDetails[],instituteId:string) {
+    return await this.parents.findOne({ "parentDetails.mob": params[0].mob,instituteId:instituteId });
   }
 
-  public async findParentByMobLogin(mob: string) {
-    return this.parents.findOne({ "parentDetails.mob": mob });
+  public async findParentByMobLogin(mob: string,instituteId:string) {
+    return this.parents.findOne({ "parentDetails.mob": mob,instituteId:instituteId });
   }
 
   public async registerParentDevice(
@@ -81,7 +85,7 @@ export class ParentsService {
       const parentDetails: IParentDetails | undefined =
         parent.parentDetails.find((data: any) => data.mob === params.mob);
 
-      const newJwt = this.generateJWT(parent.id, params.mob);
+      const newJwt = this.generateJWT(parent.id, params.mob,params.instituteId);
 
       if (parent.device.length == 0) {
         this.createDeviceOwner(
@@ -204,7 +208,6 @@ export class ParentsService {
 
   public async updateJWT(parentId: string, params: ILoginReq, jwt: string) {
     try {
-      console.log("parentId", parentId, " params==>", params, " jwt==>", jwt);
       const updateJwt = await this.parents.updateOne(
         { id: parentId, "device.mob": params.mob },
         {
@@ -227,9 +230,9 @@ export class ParentsService {
     }
   }
 
-  public generateJWT(id: string, mob: string) {
+  public generateJWT(id: string, mob: string,instituteId:string) {
     try {
-      return jwt.sign({ id: id, mob: mob }, jwtkey);
+      return jwt.sign({ id: id, mob: mob,instituteId:instituteId }, jwtkey);
     } catch (error) {
       console.log("jwt creation error==>", error);
       throw new CustomError("Error while creating jwt", 500);

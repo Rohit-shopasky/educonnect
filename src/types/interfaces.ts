@@ -7,6 +7,7 @@ export interface ILoginReq {
   platformType: EPlatformType;
   token: string;
   adid: string;
+  instituteId:string
 }
 
 export interface ILoginResponse {

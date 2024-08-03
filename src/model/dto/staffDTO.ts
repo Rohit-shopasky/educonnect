@@ -12,7 +12,7 @@ export interface IStaff{
   age:number,
   gender:gender
   classes:string[],
-  device:IDeviceDetails[]
+  device:IDeviceDetails
   address:string,
   qualifications:string,
   createdAt:string,

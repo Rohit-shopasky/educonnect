@@ -6,6 +6,9 @@ export class LoginValidator {
     if (!params.mob) {
       throw new CustomError("Mob is required!", 400);
     }
+    if (!params.instituteId) {
+      throw new CustomError("InstituteId is required!", 400);
+    }
     if (!params.adid) {
       throw new CustomError("Adid is required!", 400);
     }

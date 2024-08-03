@@ -26,13 +26,16 @@ export class StudentsService {
     try {
 
       // get the classId
-     const classDetails=await this.classService.getClassByStandardAndSection(params.standard,params.section);
+     const classDetails=await this.classService.getClassByStandardAndSection(params.standard,params.section,params.instituteId);
+   
      if(!classDetails){
       throw new CustomError(`Class does not exists!`,400);
      }
+
      
       const parent = await this.parentService.registerParentService(
         params.parents,
+        params.instituteId,
         params.address
       );
 
@@ -44,8 +47,6 @@ export class StudentsService {
         );
       }
       
-      
-
       const id = uuidv4();
       return this.students.create({
         id: id,
@@ -66,6 +67,7 @@ export class StudentsService {
     try {
       const studentData = await this.students.findOne({
         schoolId: params.schoolId,
+        instituteId:params.instituteId
       });
       return studentData ? true : false;
     } catch (error: any) {

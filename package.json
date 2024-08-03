@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && tsc",
     "buildstart": "rimraf dist && tsc && sls offline start",
-    "start": "nodemon",
+    "dev": "nodemon",
     "deploy":"sls deploy --region ap-south-1"
   },
   "keywords": [],

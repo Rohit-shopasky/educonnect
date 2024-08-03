@@ -2,6 +2,7 @@ import { EParentType } from "./studentDTO";
 
 export interface IParentDTO {
   parentDetails: IParentDetails[];
+  instituteId: string;
   device?: IDevice[];
   address?: string;
   childIds?: string[];
